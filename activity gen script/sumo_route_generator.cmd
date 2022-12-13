@@ -1,11 +1,13 @@
 
 activitygen --net-file osm.net.xml --stat-file stat_file.stat.xml --output-file trips_file.trips.rou.xml --random
 
-
-duarouter --net-file osm.net.xml --route-files trips_file.trips.rou.xml --output-file route_file.rou.xml --ignore-errors
+@ECHO off
+duarouter --net-file osm.net.xml --route-files trips_file.trips.rou.xml --output-file route_file.rou.xml --ignore-errors true -W
 
 
 duarouter -n osm.net.xml -r route_file.rou.xml --ignore-errors --write-trips -o filtered.rou.xml
+
+
 
 echo ^<?xml version=^"1.0^" encoding=^"UTF-8^"?^> > osm.sumocfg
 echo. >> osm.sumocfg
@@ -37,4 +39,7 @@ echo          ^<gui-settings-file value=^"osm.view.xml^"/^>  >> osm.sumocfg
 echo      ^</gui_only^>  >> osm.sumocfg 
 echo. >> osm.sumocfg
 echo  ^</configuration^>  >> osm.sumocfg 
- 
+
+echo.
+echo.
+echo complete.
