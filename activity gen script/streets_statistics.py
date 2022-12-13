@@ -1,3 +1,22 @@
+"""
+dependncies / inputs:
+{
+edges.csv --> folder conating all edges (Nourhan Shafik script)
+stat_file.stat.xml --> folder conatining statistics report and needs streets to be added
+}
+outputs:
+{
+stat_file_edited.stat.xml --> updated statistics file pushing al edges with population and work postions
+}
+
+"""
+
+
+
+
+
+
+
 import csv
 import xml.etree.ElementTree as ET
 
