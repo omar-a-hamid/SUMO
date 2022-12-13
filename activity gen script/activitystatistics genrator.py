@@ -1,3 +1,16 @@
+"""
+dependncies / inputs:
+{
+edges.csv --> folder conating all edges (Nourhan Shafik script)
+stats.json
+}
+outputs:
+{
+stat_file_genrated.stat.xml --> genrates statistics file pushing 
+}
+
+"""
+
 import json
 import csv
 import xml.etree.ElementTree as ET
@@ -32,7 +45,76 @@ departureVariation      = data_json["departureVariation"]
 defualt_population      = data_json["defualt_population"]
 defualt_work_pos        = data_json["defualt_work_pos"]
 
+begin_age = []
+end_age = []
+people_Nbr = []
+
+op_hours=[]
+op_prop = []
+
+cl_prop = []
+cl_hours=[]
+
+gates_edges = []
+gates_pos =[]
+gates_outgoing =[]
+gates_incoming =[] 
+
+
+for index in data_json['population']:
+    begin_age.append(index['beginAge'])
+    end_age.append(index['endAge'])
+    people_Nbr.append(index['peopleNbr'])
+
+for index in data_json['closing']:
+    cl_hours.append(index['proportion'])
+    cl_prop.append(index['hour'])
+
+for index in data_json['gates']:
+    gates_edges.append(index['edge'])
+    gates_pos.append(index['pos'])
+    gates_outgoing.append(index['incoming'])
+    gates_incoming.append(index['outgoing'])
+
+
+""" 
+for index in data_json['beginAge']:
+    begin_age.append(index)
+
+for index in data_json['endAge']:
+    end_age.append(index)
+
+for index in data_json['peopleNbr']:
+    people_Nbr.append(index)
+ """
+
+
 stats_json.close()
+
+
+
+data_file = open('edges.csv','r')
+
+
+
+reader = csv.reader(data_file, dialect='excel' )
+counter = 0
+ids_list = []
+
+for row in reader:
+    if(not (counter)):
+        counter +=1
+        continue
+        
+    # print(row[6])
+    id = row[0]
+    ids_list.append(id)
+
+
+# print(ids_list)
+data_file.close()
+
+
 
 statistics_file = open('stat_file_generated.stat.xml','w')
 
@@ -44,29 +126,39 @@ statistics_file.write('<city>\n')
 statistics_file.write('	<general inhabitants="'+inhabitants+'" households="'+households+'" childrenAgeLimit="'+childrenAgeLimit+'"etirementAgeLimit="'+retirementAgeLimit+'"arRate="'+carRate+'" unemploymentRate="'+unemploymentRate+'" footDistanceLimit="'+footDistanceLimit+'"incomingTraffic="'+incomingTraffic+'" outgoingTraffic="'+outgoingTraffic+'"laborDemand="'+laborDemand+'"/>\n')
 statistics_file.write('	<parameters carPreference="'+carPreference+'" meanTimePerKmInCity="'+meanTimePerKmInCity+'" freeTimeActivityRate="'+freeTimeActivityRate+'" uniformRandomTraffic="'+uniformRandomTraffic+'" departureVariation="'+departureVariation+'" />\n')
 statistics_file.write('	\n')
-statistics_file.write('	<population>\n')
-statistics_file.write('		<bracket beginAge="0" endAge="30" peopleNbr="30" />\n')
-statistics_file.write('		<bracket beginAge="30" endAge="60" peopleNbr="40" />\n')
-statistics_file.write('		<bracket beginAge="60" endAge="90" peopleNbr="30" />\n')
+statistics_file.write('	<population>\n') #insert poopulation here.. 
+for beginAge, endAge, nbr in zip(begin_age,end_age,people_Nbr):
+
+    statistics_file.write('		<bracket beginAge="'+beginAge+'" endAge="'+endAge+'" peopleNbr="'+nbr+'" />\n')
+
 statistics_file.write('	</population>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<workHours>\n')
-statistics_file.write('		<opening hour="30600" proportion="0.30" />\n')
-statistics_file.write('		<opening hour="32400" proportion="0.70" />\n')
-statistics_file.write('		<closing hour="43200" proportion="0.20" />\n')
-statistics_file.write('		<closing hour="63000" proportion="0.20" />\n')
-statistics_file.write('		<closing hour="64800" proportion="0.60" />\n')
+for hour, proprtion in zip(op_hours,op_prop):
+    statistics_file.write('		<opening hour="'+hour+'" proportion="'+proprtion+'" />\n')
+
+for hour, proprtion in zip(cl_hours,cl_prop):
+    statistics_file.write('		<closing hour="'+hour+'" proportion="'+proprtion+'" />\n')
+
 statistics_file.write('	</workHours>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<streets>\n')
-statistics_file.write('\n')
+for id in ids_list:
+
+            statistics_file.write('		<street edge="'+str(id)+'" population="'+defualt_population+'" workPosition="'+defualt_work_pos+'" />\n')
+
 statistics_file.write('	</streets>\n')
 statistics_file.write('	\n')
+
 statistics_file.write('	<cityGates>\n')
-statistics_file.write('		<entrance edge="-25584616#1" pos="1" incoming="0.5" outgoing="0.5" />\n')
-statistics_file.write('		<!-- <entrance edge="e44t51" pos="280" incoming="0.5" outgoing="0.5" /> -->\n')
+for gate_edge,gate_pos,gate_incoming,gate_outgoing in zip(gates_edges,gates_pos,gates_incoming,gates_outgoing):
+
+    statistics_file.write('		<entrance edge="'+gate_edge+'" pos="'+gate_pos+'" incoming="'+gate_incoming+'" outgoing="'+gate_outgoing+'" />\n')
+
 statistics_file.write('	</cityGates>\n')
 statistics_file.write('	\n')
+
+#from here not edited
 statistics_file.write('	<schools>\n')
 statistics_file.write('	</schools>\n')
 statistics_file.write('	\n')
@@ -166,44 +258,3 @@ statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>)\n')
 
-
-
-
-""" root = ET.Element("Catalog")
-    
-m1 = ET.Element("mobile")
-root.append (m1)
-    
-b1 = ET.SubElement(m1, "brand")
-b1.text = "Redmi"
-b2 = ET.SubElement(m1, "price")
-b2.text = "6999"
-    
-m2 = ET.Element("mobile")
-root.append (m2)
-    
-c1 = ET.SubElement(m2, "brand")
-c1.text = "Samsung"
-c2 = ET.SubElement(m2, "price")
-c2.text = "9999"
-    
-m3 = ET.Element("mobile")
-root.append (m3)
-    
-d1 = ET.SubElement(m3, "brand")
-d1.text = "RealMe"
-d2 = ET.SubElement(m3, "price")
-d2.text = "11999"
-    
-tree = ET.ElementTree(root)
-    
-with open ("fileName.xml", "wb") as files :
-    tree.write(files)
- """
-""" a = ET.Element('a')
-b = ET.SubElement(a, 'b')
-c = ET.SubElement(a, 'c')
-d = ET.SubElement(c, 'd')
-ET.dump(a)
-
- """

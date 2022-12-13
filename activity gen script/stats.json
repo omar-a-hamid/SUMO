@@ -10,6 +10,7 @@
     "incomingTraffic":"2000",
     "outgoingTraffic":"500",
     "laborDemand":"1.05",
+
     "defualt_population": "1",
     "defualt_work_pos" : "1",
 
@@ -17,7 +18,72 @@
     "meanTimePerKmInCity":"6", 
     "freeTimeActivityRate":"0.35",
     "uniformRandomTraffic":"0.69",
-    "departureVariation":"300"
+    "departureVariation":"300",
 
+    "population": [
+    
+    {
+        "beginAge":"0",
+        "endAge":"30",
+        "peopleNbr":"30"
+    },
+    
+    {
+        "beginAge":"30",
+        "endAge":"60",
+        "peopleNbr":"40"
+    },
+    {
+        "beginAge":"60",
+        "endAge":"90",
+        "peopleNbr":"30"
+    }
+    ],
+
+
+    "opening": [
+    {
+        "hour":"30600",
+        "proportion":"0.30"
+    },
+    {
+        "hour":"32400",
+        "proportion":"0.70"
+    }
+
+    ],
+
+    "closing": [
+        {
+            "hour":"43200",
+            "proportion":"0.20"
+        },
+        {
+            "hour":"63000",
+            "proportion":"0.20"
+        },
+        {
+            "hour":"64800",
+            "proportion":"0.60"
+        }
+        ],
+
+    "gates":[		
+        {
+            "edge":"-25584616#1",
+            "pos":"1",
+            "incoming":"0.5",
+            "outgoing":"0.5"
+
+        },
+        {
+            "edge":"-25584615#1",
+            "pos":"1",
+            "incoming":"0.5",
+            "outgoing":"0.5"
+
+        }
+    ]
+    
 
 }
