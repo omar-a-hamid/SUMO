@@ -11,12 +11,6 @@ stat_file_edited.stat.xml --> updated statistics file pushing al edges with popu
 
 """
 
-
-
-
-
-
-
 import csv
 import xml.etree.ElementTree as ET
 
