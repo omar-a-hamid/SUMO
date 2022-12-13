@@ -2,6 +2,7 @@
 dependncies / inputs:
 {
 edges.csv --> folder conating all edges (Nourhan Shafik script)
+gen.csv --> school files
 stats.json
 }
 outputs:
@@ -114,7 +115,29 @@ for row in reader:
 # print(ids_list)
 data_file.close()
 
+data_file_schools = open('gen.csv','r')
 
+
+
+reader_schools = csv.reader(data_file_schools, dialect='excel' )
+counter = 0
+school_ids = []
+school_edges = []
+
+
+for row in reader_schools:
+    if(not (counter)):
+        counter +=1
+        continue
+        
+    # print(row[6])
+
+    school_ids.append(row[0])
+    school_edges.append(row[6])
+
+
+# print(ids_list)
+data_file_schools.close()
 
 statistics_file = open('stat_file_generated.stat.xml','w')
 
@@ -158,10 +181,14 @@ for gate_edge,gate_pos,gate_incoming,gate_outgoing in zip(gates_edges,gates_pos,
 statistics_file.write('	</cityGates>\n')
 statistics_file.write('	\n')
 
-#from here not edited
-statistics_file.write('	<schools>\n')
+
+statistics_file.write('	<schools>\n') # only eges are genrated, maybe defualt values for the rest? # TODO
+for school_edge,school_id in zip(school_edges,school_ids):
+		statistics_file.write('		<school edge="'+school_edge+'" pos="20" beginAge="0" endAge="6" capacity="200" opening="32400" closing="64800" />\n')
 statistics_file.write('	</schools>\n')
 statistics_file.write('	\n')
+
+#from here not edited #TODO
 statistics_file.write('	<busStations>\n')
 statistics_file.write('		<busStation id="1" edge="-25584620#0" pos="10" />\n')
 statistics_file.write('		<busStation id="2" edge="-25584621#0" pos="10" />\n')
