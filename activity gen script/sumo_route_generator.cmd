@@ -42,4 +42,4 @@ echo  ^</configuration^>  >> osm.sumocfg
 
 echo.
 echo.
-echo complete.
+echo complete
