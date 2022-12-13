@@ -46,6 +46,14 @@ departureVariation      = data_json["departureVariation"]
 defualt_population      = data_json["defualt_population"]
 defualt_work_pos        = data_json["defualt_work_pos"]
 
+school_defualt_pos = data_json["school_defualt_pos"]
+school_defualt_beginAge = data_json["school_defualt_beginAge"]
+school_defualt_endAge = data_json["school_defualt_endAge"]
+school_defualt_capacity = data_json["school_defualt_capacity"]
+school_defualt_opening = data_json["school_defualt_opening"]
+school_defualt_closing = data_json["school_defualt_closing"]
+
+
 begin_age = []
 end_age = []
 people_Nbr = []
@@ -183,8 +191,16 @@ statistics_file.write('	\n')
 
 
 statistics_file.write('	<schools>\n') # only eges are genrated, maybe defualt values for the rest? # TODO
+
+""" school_defualt_pos = data_json["school_defualt_pos"]
+school_defualt_beginAge = data_json["school_defualt_beginAge"]
+school_defualt_endAge = data_json["school_defualt_endAge"]
+school_defualt_capacity = data_json["school_defualt_capacity"]
+school_defualt_opening = data_json["school_defualt_opening"]
+school_defualt_closing = data_json["school_defualt_closing"]
+ """
 for school_edge,school_id in zip(school_edges,school_ids):
-		statistics_file.write('		<school edge="'+school_edge+'" pos="20" beginAge="0" endAge="6" capacity="200" opening="32400" closing="64800" />\n')
+		statistics_file.write('		<school edge="'+school_edge+'" pos="'+school_defualt_pos+'" beginAge="'+school_defualt_beginAge+'" endAge="'+school_defualt_endAge+'" capacity="'+school_defualt_capacity+'" opening="'+school_defualt_opening+'" closing="'+school_defualt_closing+'" />\n')
 statistics_file.write('	</schools>\n')
 statistics_file.write('	\n')
 

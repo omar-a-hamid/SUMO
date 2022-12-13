@@ -20,6 +20,15 @@
     "uniformRandomTraffic":"0.69",
     "departureVariation":"300",
 
+
+    "school_defualt_pos": "20",
+    "school_defualt_beginAge": "0",
+    "school_defualt_endAge": "18",
+    "school_defualt_capacity": "200",
+    "school_defualt_opening": "32400",
+    "school_defualt_closing": "64800",
+
+
     "population": [
     
     {
