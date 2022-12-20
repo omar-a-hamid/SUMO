@@ -1,0 +1,3 @@
+BUG:error in sumo_route_generator.cmd and activitystatistics genrator.py integration 
+
+BUG: error between Nourhan edietd files and my scripts 
