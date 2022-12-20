@@ -75,9 +75,14 @@ for index in data_json['population']:
     end_age.append(index['endAge'])
     people_Nbr.append(index['peopleNbr'])
 
+
+for index in data_json['opening']:
+    cl_prop.append(index['proportion'])
+    cl_hours.append(index['hour'])
+
 for index in data_json['closing']:
-    cl_hours.append(index['proportion'])
-    cl_prop.append(index['hour'])
+    cl_hours.append(index['hour'])
+    cl_prop.append(index['proportion'])
 
 for index in data_json['gates']:
     gates_edges.append(index['edge'])
@@ -154,7 +159,7 @@ statistics_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
 statistics_file.write('\n')
 statistics_file.write('\n')
 statistics_file.write('<city>\n')
-statistics_file.write('	<general inhabitants="'+inhabitants+'" households="'+households+'" childrenAgeLimit="'+childrenAgeLimit+'"etirementAgeLimit="'+retirementAgeLimit+'"arRate="'+carRate+'" unemploymentRate="'+unemploymentRate+'" footDistanceLimit="'+footDistanceLimit+'"incomingTraffic="'+incomingTraffic+'" outgoingTraffic="'+outgoingTraffic+'"laborDemand="'+laborDemand+'"/>\n')
+statistics_file.write('	<general inhabitants="'+inhabitants+'" households="'+households+'" childrenAgeLimit="'+childrenAgeLimit+'" retirementAgeLimit="'+retirementAgeLimit+'" carRate="'+carRate+'" unemploymentRate="'+unemploymentRate+'" footDistanceLimit="'+footDistanceLimit+'" incomingTraffic="'+incomingTraffic+'" outgoingTraffic="'+outgoingTraffic+'" laborDemand="'+laborDemand+'"/>\n')
 statistics_file.write('	<parameters carPreference="'+carPreference+'" meanTimePerKmInCity="'+meanTimePerKmInCity+'" freeTimeActivityRate="'+freeTimeActivityRate+'" uniformRandomTraffic="'+uniformRandomTraffic+'" departureVariation="'+departureVariation+'" />\n')
 statistics_file.write('	\n')
 statistics_file.write('	<population>\n') #insert poopulation here.. 
@@ -192,13 +197,6 @@ statistics_file.write('	\n')
 
 statistics_file.write('	<schools>\n') # only eges are genrated, maybe defualt values for the rest? # TODO
 
-""" school_defualt_pos = data_json["school_defualt_pos"]
-school_defualt_beginAge = data_json["school_defualt_beginAge"]
-school_defualt_endAge = data_json["school_defualt_endAge"]
-school_defualt_capacity = data_json["school_defualt_capacity"]
-school_defualt_opening = data_json["school_defualt_opening"]
-school_defualt_closing = data_json["school_defualt_closing"]
- """
 for school_edge,school_id in zip(school_edges,school_ids):
 		statistics_file.write('		<school edge="'+school_edge+'" pos="'+school_defualt_pos+'" beginAge="'+school_defualt_beginAge+'" endAge="'+school_defualt_endAge+'" capacity="'+school_defualt_capacity+'" opening="'+school_defualt_opening+'" closing="'+school_defualt_closing+'" />\n')
 statistics_file.write('	</schools>\n')
