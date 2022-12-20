@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import xml.etree.cElementTree as et
 
-tree=et.parse('nasrcity_osm.net.xml')
+tree=et.parse('osm.net.xml')
 root=tree.getroot()
 
 root=tree.getroot()
