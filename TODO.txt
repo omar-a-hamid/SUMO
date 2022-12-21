@@ -1,3 +1,7 @@
-BUG:error in sumo_route_generator.cmd and activitystatistics genrator.py integration 
+BUG:error in sumo_route_generator.cmd and activitystatistics genrator.py integration //DONE
 
-BUG: error between Nourhan edietd files and my scripts 
+BUG: error between Nourhan edietd files and my scripts //DONE
+
+TODO: ADD all scripts t the batch file 
+
+TODO: busline busroutes 
