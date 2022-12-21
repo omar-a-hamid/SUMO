@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # coding: utf-8
 
 # In[2]:
@@ -20,15 +19,29 @@ temp2 = []
 datag = []
 dtg = []
 cnt = 0
+
+
+
 for i in dfgen['shape']:
-    temp1.append(i.split(" "))
+    print(i)
+    try:
+        temp1.append(i.split(" "))
+    except:
+        continue
+    temp2=[]
     for j in temp1:
         for k in j:
             temp2.append(k.split(","))
-            for d in temp2:
-                datag.append([float(d[0]),float(d[1])])
-    dtg.append(np.mean(datag, axis=0))
 
+    datag.append(temp2)
+
+    
+center = []
+for building in datag:
+    for shape in building:
+        center.append([float(shape[0]),float(shape[1])])
+    dtg.append(np.mean(center, axis=0))
+    print(np.mean(center, axis=0))
 
 # In[25]:
 
@@ -59,23 +72,27 @@ for ed in datad:
 # In[50]:
 
 
+#nearest edge 1st loop on dataset of the buildings, 2nd loop on ds of the edges
 dnn = []
+
 for p in dtg:    
     mind =  (math.dist(p, edge[0]))
     id_ = 0
     for j ,q in enumerate(edge):
         if (mind > (math.dist(p, q))):
             mind = (math.dist(p, q))
-    dnn.append(j)
+            id_ = j
+            
+    dnn.append(id_)
     
 
 
 # In[53]:
 
 
-id_ = []
+id_nn = []
 for i in dnn:
-    id_.append(dfed['id'][i])
+    id_nn.append(dfed['id'][i])
 
 
 # In[45]:
@@ -88,15 +105,16 @@ dfed['shape'] = edge
 # In[55]:
 
 
-dfgen['nearest_edge'] = id_
+dfgen['nearest_edge'] = id_nn
 
 
 # In[57]:
 
 
-dfgen.to_csv (r'gen.csv', index = False, header=True)
-dfed.to_csv (r'edges.csv', index = False, header=True)
+dfgen.to_csv (r'gen_float.csv', index = False, header=True)
+dfed.to_csv (r'edges_float.csv', index = False, header=True)
 
+print("Finish")
 
 # In[ ]:
 

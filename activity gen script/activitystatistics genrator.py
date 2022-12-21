@@ -77,8 +77,8 @@ for index in data_json['population']:
 
 
 for index in data_json['opening']:
-    cl_prop.append(index['proportion'])
-    cl_hours.append(index['hour'])
+    op_prop.append(index['proportion'])
+    op_hours.append(index['hour'])
 
 for index in data_json['closing']:
     cl_hours.append(index['hour'])
@@ -107,7 +107,7 @@ stats_json.close()
 
 
 
-data_file = open('edges.csv','r')
+data_file = open('edges_float.csv','r')
 
 
 
@@ -122,13 +122,14 @@ for row in reader:
         
     # print(row[6])
     id = row[0]
+    # print(id)
     ids_list.append(id)
 
 
 # print(ids_list)
 data_file.close()
 
-data_file_schools = open('gen.csv','r')
+data_file_schools = open('gen_float.csv','r')
 
 
 
@@ -146,7 +147,7 @@ for row in reader_schools:
     # print(row[6])
 
     school_ids.append(row[0])
-    school_edges.append(row[6])
+    school_edges.append(row[-1])
 
 
 # print(ids_list)
@@ -297,5 +298,5 @@ statistics_file.write('			</frequencies>\n')
 statistics_file.write('		</busLine>\n')
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
-statistics_file.write('</city>)\n')
+statistics_file.write('</city>')
 
