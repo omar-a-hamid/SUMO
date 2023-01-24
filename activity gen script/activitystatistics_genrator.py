@@ -12,6 +12,7 @@ stat_file_genrated.stat.xml --> genrates statistics file pushing
 
 """
 
+
 import json
 import csv
 import xml.etree.ElementTree as ET
