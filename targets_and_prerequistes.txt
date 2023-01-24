@@ -1,0 +1,58 @@
+osm_web_wiz: 
+
+    gen: 
+        osm.net.xml 
+        osm.poly.xml
+        osm_stops.add.xml
+
+stats.json: 
+    reqs:
+        manual? 
+
+parsedge.py: 
+    reqs: 
+        osm.net.xml
+    gen: 
+        edges.csv
+
+
+parse_xml.py:
+
+    reqs:
+        osm.poly.xml
+        
+    gen: 
+        gen.csv
+
+
+osm_stops.add.xml: 
+
+    reqs: 
+        osm_stops.add.xml
+    gen: 
+        Bstop.csv
+
+activitystatistics genrator.py: 
+
+    reqs:
+        stats.json 
+        edges_float.csv
+        gen_float.csv
+
+    genrates: 
+        stat_file_generated.stat.xml
+
+
+
+sumo_route_generator.cmd: 
+    reqs:
+        osm.net.xml 
+        stat_file.stat.xml
+    
+    gen:
+        filtered.rou.xml
+
+
+
+
+
