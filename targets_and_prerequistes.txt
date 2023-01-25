@@ -1,3 +1,15 @@
+call hirarchy: 
+1-osm web osm_web_wiz
+2-sumo_route_generator.cmd
+    -parsedge.py
+    -parse_xml.py
+    -parseBstop.py
+    -nearestEdge.py
+    -activitystatistics_genrator.py
+
+
+
+
 osm_web_wiz: 
 
     gen: 
@@ -25,14 +37,24 @@ parse_xml.py:
         gen.csv
 
 
-osm_stops.add.xml: 
+parseBstop.py: 
 
     reqs: 
         osm_stops.add.xml
     gen: 
         Bstop.csv
 
-activitystatistics genrator.py: 
+nearestedge.py:
+    reqs:
+        edges.csv
+        gen.csv
+
+    genrates: 
+        gen_float.csv
+        edges_float.csv
+
+
+activitystatistics_genrator.py: 
 
     reqs:
         stats.json 

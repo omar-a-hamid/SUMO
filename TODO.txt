@@ -2,6 +2,9 @@ BUG:error in sumo_route_generator.cmd and activitystatistics genrator.py integra
 
 BUG: error between Nourhan edietd files and my scripts //DONE
 
+BUG: city gates in JSON file 
+
+
 TODO: ADD all scripts t the batch file 
 
 TODO: busline busroutes 
