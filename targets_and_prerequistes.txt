@@ -44,6 +44,13 @@ parseBstop.py:
     gen: 
         Bstop.csv
 
+Bstops_ref.py:
+    reqs: 
+        Bstop.csv
+    gen: 
+        Bstop_ref_id.csv
+
+
 nearestedge.py:
     reqs:
         edges.csv
@@ -57,6 +64,9 @@ nearestedge.py:
 activitystatistics_genrator.py: 
 
     reqs:
+        Bstop.csv
+        bus_lines.csv
+        Bstop_ref_id.csv
         stats.json 
         edges_float.csv
         gen_float.csv
