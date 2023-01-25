@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import xml.etree.cElementTree as et
 
-tree=et.parse('osm.poly.xml')
+tree=et.parse('../osm.poly.xml')
 root=tree.getroot()
 print(root[2])
 

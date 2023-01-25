@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import xml.etree.cElementTree as et
 
-tree=et.parse('osm_ptlines.xml')
+tree=et.parse('../osm_ptlines.xml')
 root=tree.getroot()
 
 
@@ -30,21 +30,22 @@ index = 0
 for line in root.iter('ptLine'):
 	# print((line.attrib))
 	# print(line.iter('id'))
-	print((line.attrib.get('id')))#prints id of route 
+	#print((line.attrib.get('id')))#prints id of route 
 	dictionary['line_id']=(line.attrib.get('id'))
 	dictionary['length']=0
 	# lineDetails.append((line.attrib.get('id')))
 	for stop in line.iter('busStop'):
 		
 		# print(line.iter)
-		print((stop.attrib.get('id')))#prints ids of line in the route
+		#print((stop.attrib.get('id')))#prints ids of line in the route
 		dictionary[str(index)]=(stop.attrib.get('id'))
 		# lineDetails.append((stop.attrib.get('id')))
 		index=index+1
+		dictionary['length']=index
 	lineDetails.append(dictionary.copy())
-	dictionary['length']=str(index)
-	print(dictionary)
-	print(lineDetails)
+
+	#print(dictionary)
+	#print(lineDetails)
 	index = 0
 	# dictionary.clear()
 	
@@ -87,3 +88,4 @@ df = pd.DataFrame.from_dict(lineDetails)
 df.to_csv (r'bus_lines.csv', index = False, header=True)
 
 
+print('finish')

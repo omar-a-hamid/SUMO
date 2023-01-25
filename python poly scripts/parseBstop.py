@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import xml.etree.cElementTree as et
 
-tree=et.parse('osm_stops.add.xml')
+tree=et.parse('../osm_stops.add.xml')
 root=tree.getroot()
 
 root=tree.getroot()
@@ -13,6 +13,7 @@ polyDetails = []
 
 print("--------------------------------")
 i = 0
+
 for poly in root.iter('busStop'):
 	# i+=1
 	# print(i)
