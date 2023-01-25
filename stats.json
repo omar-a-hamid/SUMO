@@ -77,7 +77,8 @@
         }
         ],
 
-    "gates":[		
+    "comment on gates (below), gates are left empty":"",
+    "but should be added in the following format":[		
         {
             "edge":"-25584616#1",
             "pos":"1",
@@ -92,6 +93,9 @@
             "outgoing":"0.5"
 
         }
+    ],
+    "gates":[		
+
     ]
     
 
