@@ -4,6 +4,9 @@ dependncies / inputs:
 edges.csv --> folder conating all edges (Nourhan Shafik script)
 gen.csv --> school files
 stats.json
+Bstop_ref_id.csv
+Bstop.csv
+bus_lines.csv
 }
 outputs:
 {
@@ -153,7 +156,79 @@ for row in reader_schools:
 
 # print(ids_list)
 data_file_schools.close()
+##end school
 
+##ref_id dectionary
+ref_id_dect = {}
+data_file_bstops_ref_id = open('Bstop_ref_id.csv','r')
+reader_Bstops_refId = csv.reader(data_file_bstops_ref_id, dialect='excel' )
+for row in reader_Bstops_refId:
+    ref_id_dect[str(row[0])] = row[-1]
+# print(ref_id_dect)
+##
+
+##start bus stops
+data_file_bstops = open('Bstop.csv','r')
+reader_Bstops = csv.reader(data_file_bstops, dialect='excel' )
+counter = 0
+stops_ids = []
+stops_edges = []
+stops_pos = []
+
+
+for row in reader_Bstops:
+    if(not (counter)):
+        counter +=1
+        continue
+        
+    # print(row[6])
+
+    stops_ids.append(ref_id_dect[str(row[0])])
+    stops_edges.append(row[1])
+    stops_pos.append(str(round((float(row[2])+float(row[3]))/2)))
+
+# print(stops_ids)
+# print(stops_pos)
+data_file_bstops.close()
+#end bus stops
+
+
+##start bus lines
+data_file_Blines = open('bus_lines.csv','r')
+reader_Blines = csv.reader(data_file_Blines, dialect='excel' )
+counter = 0
+
+
+Blines_data=[]
+Blines_rouets=[]
+for row in reader_Blines:
+    if(not (counter)):
+        counter +=1
+        continue
+        
+    # print(row[6])
+    Blines_rouets.append(row[0])
+    for element in row[2:]: 
+        if(element):
+           
+
+            Blines_rouets.append(ref_id_dect[str(element)])
+
+
+            
+            
+            # print(Blines_rouets)
+
+        # .append(row[1])
+        # .append(str(round((float(row[2])+float(row[3]))/2)))
+    Blines_data.append(Blines_rouets.copy())
+    Blines_rouets.clear()
+    print(Blines_data)
+
+
+# print(stops_pos)
+data_file_Blines.close()
+#end bus lines
 statistics_file = open('stat_file_generated.stat.xml','w')
 
 
@@ -204,99 +279,98 @@ for school_edge,school_id in zip(school_edges,school_ids):
 statistics_file.write('	</schools>\n')
 statistics_file.write('	\n')
 
-#from here not edited #TODO
+
+
 statistics_file.write('	<busStations>\n')
-statistics_file.write('		<busStation id="1" edge="-25584620#0" pos="10" />\n')
-statistics_file.write('		<busStation id="2" edge="-25584621#0" pos="10" />\n')
-statistics_file.write('		<busStation id="3" edge="-25584625#0" pos="10" />\n')
-statistics_file.write('		<!-- <busStation id="4" edge="-25584629#0" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="5" edge="e24t23" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="6" edge="e23t33" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="7" edge="e33t32" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="8" edge="e32t31" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="9" edge="e31t21" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="10" edge="e21t11" pos="10" /> -->\n')
-statistics_file.write('\n')
-statistics_file.write('		<!-- <busStation id="101" edge="e12t11" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="102" edge="e13t12" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="103" edge="e14t13" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="104" edge="e24t14" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="105" edge="e23t24" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="106" edge="e33t23" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="107" edge="e32t33" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="108" edge="e31t32" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="109" edge="e21t31" pos="10" /> -->\n')
-statistics_file.write('		<busStation id="110" edge="-25584626#0" pos="10" />\n')
-statistics_file.write('\n')
-statistics_file.write('		<busStation id="11" edge="-25584627#0" pos="10" />\n')
-statistics_file.write('		<!-- <busStation id="12" edge="e22t32" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="13" edge="e32t42" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="14" edge="e42t41" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="15" edge="e41t31" pos="10" /> -->\n')
-statistics_file.write('\n')
-statistics_file.write('		<!-- <busStation id="111" edge="e22t12" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="112" edge="e32t22" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="113" edge="e42t32" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="114" edge="e41t42" pos="10" /> -->\n')
-statistics_file.write('		<!-- <busStation id="115" edge="e31t41" pos="10" /> -->\n')
+for stop_id,stop_edge,stop_pos in zip(stops_ids,stops_edges,stops_pos):
+		statistics_file.write('		<busStation id="'+stop_id+'" edge="'+stop_edge+'" pos="'+stop_pos+'" />\n')
 statistics_file.write('	</busStations>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<busLines>\n')
-statistics_file.write('		<busLine id="101" maxTripDuration="10">\n')
-statistics_file.write('			<stations>\n')
-statistics_file.write('				<station refId="1" />\n')
-statistics_file.write('				<station refId="3" />\n')
-statistics_file.write('				<!-- <station refId="4" /> -->\n')
-statistics_file.write('				<!-- <station refId="5" /> -->\n')
-statistics_file.write('				<!-- <station refId="6" /> -->\n')
-statistics_file.write('				<!-- <station refId="7" /> -->\n')
-statistics_file.write('				<!-- <station refId="8" /> -->\n')
-statistics_file.write('				<!-- <station refId="9" /> -->\n')
-statistics_file.write('			</stations>\n')
-statistics_file.write('			<revStations>\n')
-statistics_file.write('				<!-- <station refId="109" /> -->\n')
-statistics_file.write('				<!-- <station refId="108" /> -->\n')
-statistics_file.write('				<!-- <station refId="107" /> -->\n')
-statistics_file.write('				<!-- <station refId="106" /> -->\n')
-statistics_file.write('				<!-- <station refId="105" /> -->\n')
-statistics_file.write('				<!-- <station refId="104" /> -->\n')
-statistics_file.write('				<!-- <station refId="103" /> -->\n')
-statistics_file.write('				<!-- <station refId="102" /> -->\n')
-statistics_file.write('			</revStations>\n')
-statistics_file.write('			<frequencies>\n')
-statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
-statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
-statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
-statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
-statistics_file.write('			</frequencies>\n')
-statistics_file.write('		</busLine>\n')
-statistics_file.write('		\n')
-statistics_file.write('		<busLine id="102" maxTripDuration="7">\n')
-statistics_file.write('			<stations>\n')
-statistics_file.write('				<!-- <station refId="15" /> -->\n')
-statistics_file.write('				<!-- <station refId="9" /> -->\n')
-statistics_file.write('				<!-- <station refId="10" /> -->\n')
-statistics_file.write('				<!-- <station refId="1" /> -->\n')
-statistics_file.write('				<!-- <station refId="11" /> -->\n')
-statistics_file.write('				<!-- <station refId="12" /> -->\n')
-statistics_file.write('				<!-- <station refId="13" /> -->\n')
-statistics_file.write('				<!-- <station refId="14" /> -->\n')
-statistics_file.write('			</stations>\n')
-statistics_file.write('			<revStations>\n')
-statistics_file.write('				<!-- <station refId="114" /> -->\n')
-statistics_file.write('				<!-- <station refId="113" /> -->\n')
-statistics_file.write('				<!-- <station refId="112" /> -->\n')
-statistics_file.write('				<!-- <station refId="111" /> -->\n')
-statistics_file.write('				<!-- <station refId="101" /> -->\n')
-statistics_file.write('				<!-- <station refId="110" /> -->\n')
-statistics_file.write('				<!-- <station refId="109" /> -->\n')
-statistics_file.write('				<!-- <station refId="115" /> -->\n')
-statistics_file.write('			</revStations>\n')
-statistics_file.write('			<frequencies>\n')
-statistics_file.write('				<frequency begin="28800" end="32400" rate="600" />\n')
-statistics_file.write('				<frequency begin="57600" end="64800" rate="600" />\n')
-statistics_file.write('			</frequencies>\n')
-statistics_file.write('		</busLine>\n')
+# Blines_data=[]
+# Blines_rouets=[]
+for line in Blines_data:
+    # print(line)
+    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="10">\n')
+    statistics_file.write('			<stations>\n')
+    # print('		<busLine id="'+line[0]+'" maxTripDuration="10">\n')
+    # print('			<stations>\n')
+    for stops in line[2:]:
+        statistics_file.write('				<station refId="'+stops+'" />\n')
+        # print('				<station refId="'+stops+'" />\n')
+        # print(stops)
+
+		# statistics_file.write('		<busLine id="'+stop_id+'" edge="'+stop_edge+'" pos="'+stop_pos+'" />\n')
+    statistics_file.write('			</stations>\n')
+    statistics_file.write('			<revStations>\n')
+    for stops in reversed(line[2:]):
+        statistics_file.write('				<station refId="'+stops+'" />\n')
+        # print('				<station refId="'+stops+'" />\n')
+    statistics_file.write('			</revStations>\n')
+    statistics_file.write('			<frequencies>\n')
+    statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
+    statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
+    statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
+    statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
+    statistics_file.write('			</frequencies>\n')
+    statistics_file.write('		</busLine>\n')
+    statistics_file.write('		\n')
+
+# statistics_file.write('		<busLine id="101" maxTripDuration="10">\n')
+# statistics_file.write('			<stations>\n')
+# statistics_file.write('				<station refId="1" />\n')
+# statistics_file.write('				<station refId="3" />\n')
+# statistics_file.write('				<!-- <station refId="4" /> -->\n')
+# statistics_file.write('				<!-- <station refId="5" /> -->\n')
+# statistics_file.write('				<!-- <station refId="6" /> -->\n')
+# statistics_file.write('				<!-- <station refId="7" /> -->\n')
+# statistics_file.write('				<!-- <station refId="8" /> -->\n')
+# statistics_file.write('				<!-- <station refId="9" /> -->\n')
+# statistics_file.write('			</stations>\n')
+# statistics_file.write('			<revStations>\n')
+# statistics_file.write('				<!-- <station refId="109" /> -->\n')
+# statistics_file.write('				<!-- <station refId="108" /> -->\n')
+# statistics_file.write('				<!-- <station refId="107" /> -->\n')
+# statistics_file.write('				<!-- <station refId="106" /> -->\n')
+# statistics_file.write('				<!-- <station refId="105" /> -->\n')
+# statistics_file.write('				<!-- <station refId="104" /> -->\n')
+# statistics_file.write('				<!-- <station refId="103" /> -->\n')
+# statistics_file.write('				<!-- <station refId="102" /> -->\n')
+# statistics_file.write('			</revStations>\n')
+# statistics_file.write('			<frequencies>\n')
+# statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
+# statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
+# statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
+# statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
+# statistics_file.write('			</frequencies>\n')
+# statistics_file.write('		</busLine>\n')
+# statistics_file.write('		\n')
+# # statistics_file.write('		<busLine id="102" maxTripDuration="7">\n')
+# statistics_file.write('			<stations>\n')
+# statistics_file.write('				<!-- <station refId="15" /> -->\n')
+# statistics_file.write('				<!-- <station refId="9" /> -->\n')
+# statistics_file.write('				<!-- <station refId="10" /> -->\n')
+# statistics_file.write('				<!-- <station refId="1" /> -->\n')
+# statistics_file.write('				<!-- <station refId="11" /> -->\n')
+# statistics_file.write('				<!-- <station refId="12" /> -->\n')
+# statistics_file.write('				<!-- <station refId="13" /> -->\n')
+# statistics_file.write('				<!-- <station refId="14" /> -->\n')
+# statistics_file.write('			</stations>\n')
+# statistics_file.write('			<revStations>\n')
+# statistics_file.write('				<!-- <station refId="114" /> -->\n')
+# statistics_file.write('				<!-- <station refId="113" /> -->\n')
+# statistics_file.write('				<!-- <station refId="112" /> -->\n')
+# statistics_file.write('				<!-- <station refId="111" /> -->\n')
+# statistics_file.write('				<!-- <station refId="101" /> -->\n')
+# statistics_file.write('				<!-- <station refId="110" /> -->\n')
+# statistics_file.write('				<!-- <station refId="109" /> -->\n')
+# statistics_file.write('				<!-- <station refId="115" /> -->\n')
+# statistics_file.write('			</revStations>\n')
+# statistics_file.write('			<frequencies>\n')
+# statistics_file.write('				<frequency begin="28800" end="32400" rate="600" />\n')
+# statistics_file.write('				<frequency begin="57600" end="64800" rate="600" />\n')
+# statistics_file.write('			</frequencies>\n')
+# statistics_file.write('		</busLine>\n')
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>')
