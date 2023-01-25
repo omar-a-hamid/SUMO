@@ -1,5 +1,5 @@
 """
-dependncies / inputs:
+dependncies / inputs: (outdated!)
 {
 edges.csv --> folder conating all edges (Nourhan Shafik script)
 gen.csv --> school files
@@ -26,8 +26,6 @@ stats_json = open ('stats.json', "r")
   
 
 data_json = json.loads(stats_json.read())
-
-
 
 
 inhabitants             = data_json["inhabitants"]
@@ -95,26 +93,11 @@ for index in data_json['gates']:
     gates_incoming.append(index['outgoing'])
 
 
-""" 
-for index in data_json['beginAge']:
-    begin_age.append(index)
-
-for index in data_json['endAge']:
-    end_age.append(index)
-
-for index in data_json['peopleNbr']:
-    people_Nbr.append(index)
- """
-
-
 stats_json.close()
 
 
 
 data_file = open('edges_float.csv','r')
-
-
-
 reader = csv.reader(data_file, dialect='excel' )
 counter = 0
 ids_list = []
@@ -123,20 +106,14 @@ for row in reader:
     if(not (counter)):
         counter +=1
         continue
-        
-    # print(row[6])
+
     id = row[0]
-    # print(id)
     ids_list.append(id)
 
-
-# print(ids_list)
 data_file.close()
 
+
 data_file_schools = open('gen_float.csv','r')
-
-
-
 reader_schools = csv.reader(data_file_schools, dialect='excel' )
 counter = 0
 school_ids = []
@@ -153,10 +130,8 @@ for row in reader_schools:
     school_ids.append(row[0])
     school_edges.append(row[-1])
 
-
-# print(ids_list)
 data_file_schools.close()
-##end school
+
 
 ##ref_id dectionary
 ref_id_dect = {}
@@ -164,10 +139,10 @@ data_file_bstops_ref_id = open('Bstop_ref_id.csv','r')
 reader_Bstops_refId = csv.reader(data_file_bstops_ref_id, dialect='excel' )
 for row in reader_Bstops_refId:
     ref_id_dect[str(row[0])] = row[-1]
-# print(ref_id_dect)
-##
 
-##start bus stops
+data_file_bstops_ref_id.close()
+
+##bus stops
 data_file_bstops = open('Bstop.csv','r')
 reader_Bstops = csv.reader(data_file_bstops, dialect='excel' )
 counter = 0
@@ -180,20 +155,16 @@ for row in reader_Bstops:
     if(not (counter)):
         counter +=1
         continue
-        
-    # print(row[6])
 
     stops_ids.append(ref_id_dect[str(row[0])])
     stops_edges.append(row[1])
     stops_pos.append(str(round((float(row[2])+float(row[3]))/2)))
 
-# print(stops_ids)
-# print(stops_pos)
+
 data_file_bstops.close()
-#end bus stops
 
 
-##start bus lines
+##bus lines
 data_file_Blines = open('bus_lines.csv','r')
 reader_Blines = csv.reader(data_file_Blines, dialect='excel' )
 counter = 0
@@ -206,7 +177,6 @@ for row in reader_Blines:
         counter +=1
         continue
         
-    # print(row[6])
     Blines_rouets.append(row[0])
     for element in row[2:]: 
         if(element):
@@ -215,20 +185,13 @@ for row in reader_Blines:
             Blines_rouets.append(ref_id_dect[str(element)])
 
 
-            
-            
-            # print(Blines_rouets)
-
-        # .append(row[1])
-        # .append(str(round((float(row[2])+float(row[3]))/2)))
     Blines_data.append(Blines_rouets.copy())
     Blines_rouets.clear()
     print(Blines_data)
 
 
-# print(stops_pos)
 data_file_Blines.close()
-#end bus lines
+
 statistics_file = open('stat_file_generated.stat.xml','w')
 
 
@@ -287,25 +250,19 @@ for stop_id,stop_edge,stop_pos in zip(stops_ids,stops_edges,stops_pos):
 statistics_file.write('	</busStations>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<busLines>\n')
-# Blines_data=[]
-# Blines_rouets=[]
+
 for line in Blines_data:
-    # print(line)
+
     statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="10">\n')
     statistics_file.write('			<stations>\n')
-    # print('		<busLine id="'+line[0]+'" maxTripDuration="10">\n')
-    # print('			<stations>\n')
+
     for stops in line[2:]:
         statistics_file.write('				<station refId="'+stops+'" />\n')
-        # print('				<station refId="'+stops+'" />\n')
-        # print(stops)
-
-		# statistics_file.write('		<busLine id="'+stop_id+'" edge="'+stop_edge+'" pos="'+stop_pos+'" />\n')
     statistics_file.write('			</stations>\n')
     statistics_file.write('			<revStations>\n')
     for stops in reversed(line[2:]):
         statistics_file.write('				<station refId="'+stops+'" />\n')
-        # print('				<station refId="'+stops+'" />\n')
+
     statistics_file.write('			</revStations>\n')
     statistics_file.write('			<frequencies>\n')
     statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
@@ -316,61 +273,6 @@ for line in Blines_data:
     statistics_file.write('		</busLine>\n')
     statistics_file.write('		\n')
 
-# statistics_file.write('		<busLine id="101" maxTripDuration="10">\n')
-# statistics_file.write('			<stations>\n')
-# statistics_file.write('				<station refId="1" />\n')
-# statistics_file.write('				<station refId="3" />\n')
-# statistics_file.write('				<!-- <station refId="4" /> -->\n')
-# statistics_file.write('				<!-- <station refId="5" /> -->\n')
-# statistics_file.write('				<!-- <station refId="6" /> -->\n')
-# statistics_file.write('				<!-- <station refId="7" /> -->\n')
-# statistics_file.write('				<!-- <station refId="8" /> -->\n')
-# statistics_file.write('				<!-- <station refId="9" /> -->\n')
-# statistics_file.write('			</stations>\n')
-# statistics_file.write('			<revStations>\n')
-# statistics_file.write('				<!-- <station refId="109" /> -->\n')
-# statistics_file.write('				<!-- <station refId="108" /> -->\n')
-# statistics_file.write('				<!-- <station refId="107" /> -->\n')
-# statistics_file.write('				<!-- <station refId="106" /> -->\n')
-# statistics_file.write('				<!-- <station refId="105" /> -->\n')
-# statistics_file.write('				<!-- <station refId="104" /> -->\n')
-# statistics_file.write('				<!-- <station refId="103" /> -->\n')
-# statistics_file.write('				<!-- <station refId="102" /> -->\n')
-# statistics_file.write('			</revStations>\n')
-# statistics_file.write('			<frequencies>\n')
-# statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
-# statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
-# statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
-# statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
-# statistics_file.write('			</frequencies>\n')
-# statistics_file.write('		</busLine>\n')
-# statistics_file.write('		\n')
-# # statistics_file.write('		<busLine id="102" maxTripDuration="7">\n')
-# statistics_file.write('			<stations>\n')
-# statistics_file.write('				<!-- <station refId="15" /> -->\n')
-# statistics_file.write('				<!-- <station refId="9" /> -->\n')
-# statistics_file.write('				<!-- <station refId="10" /> -->\n')
-# statistics_file.write('				<!-- <station refId="1" /> -->\n')
-# statistics_file.write('				<!-- <station refId="11" /> -->\n')
-# statistics_file.write('				<!-- <station refId="12" /> -->\n')
-# statistics_file.write('				<!-- <station refId="13" /> -->\n')
-# statistics_file.write('				<!-- <station refId="14" /> -->\n')
-# statistics_file.write('			</stations>\n')
-# statistics_file.write('			<revStations>\n')
-# statistics_file.write('				<!-- <station refId="114" /> -->\n')
-# statistics_file.write('				<!-- <station refId="113" /> -->\n')
-# statistics_file.write('				<!-- <station refId="112" /> -->\n')
-# statistics_file.write('				<!-- <station refId="111" /> -->\n')
-# statistics_file.write('				<!-- <station refId="101" /> -->\n')
-# statistics_file.write('				<!-- <station refId="110" /> -->\n')
-# statistics_file.write('				<!-- <station refId="109" /> -->\n')
-# statistics_file.write('				<!-- <station refId="115" /> -->\n')
-# statistics_file.write('			</revStations>\n')
-# statistics_file.write('			<frequencies>\n')
-# statistics_file.write('				<frequency begin="28800" end="32400" rate="600" />\n')
-# statistics_file.write('				<frequency begin="57600" end="64800" rate="600" />\n')
-# statistics_file.write('			</frequencies>\n')
-# statistics_file.write('		</busLine>\n')
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>')
