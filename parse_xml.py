@@ -25,16 +25,8 @@ for poly in root:
 		continue 
 
 
-
-
-
 df = pd.DataFrame.from_dict(polyDetails) 
-
 df = df.dropna(subset=['shape'])
-
-# df.dropna( df,axis=0)
-
 df.to_csv (r'gen.csv', index = False, header=True)
-
 
 print("Finish")

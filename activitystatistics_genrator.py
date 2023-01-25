@@ -276,4 +276,3 @@ for line in Blines_data:
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>')
-

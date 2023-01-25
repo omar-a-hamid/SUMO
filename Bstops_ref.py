@@ -6,8 +6,7 @@ counter = 1
 for ref_id in range(len(df)):
     new_ref_id.append(counter)
     counter+=1
-# for row in df:
-    # print(row)
+
 df['ref_id'] = range(1, len(df) + 1)
 
   
