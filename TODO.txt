@@ -4,7 +4,6 @@ TODO: simulation parameters?
 
 TODO: activityGEN buslines freq and duration
 
-TODO: activityGEN distrbution of works and population in streets 
-
+TODO: activityGEN distrbution of works and population in streets  //DONE
 BUG: buslines stops are not cleared, constant between iterations fi l(n)>l(n-1) //DONE
 
