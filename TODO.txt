@@ -2,6 +2,6 @@ TODO: city gates in JSON file
 TODO: simulation parameters? 
 
 
-
+BUG: buslines stops are not cleared, constant between iterations fi l(n)>l(n-1)
 
 
