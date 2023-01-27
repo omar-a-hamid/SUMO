@@ -1,10 +1,9 @@
-.\parsedge.py
-.\parse_xml.py
-.\parseBstop.py
-.\nearestEdge.py
-.\bus_routes_parse_xml.py
-.\Bstops_ref.py
-.\activitystatistics_genrator.py
+python parsedge.py
+python parse_xml.py
+python parseBstop.py
+python nearestEdge.py
+python bus_routes_parse_xml.py
+python Bstops_ref.pyactivitystatistics_genrator.py
 activitygen --net-file "../osm.net.xml" --stat-file stat_file_generated.stat.xml --output-file trips_file.trips.rou.xml --random
 
 @ECHO off
