@@ -253,7 +253,7 @@ statistics_file.write('	<busLines>\n')
 
 for line in Blines_data:
 
-    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="10">\n')
+    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="10">\n') #TODO: max trip duration
     statistics_file.write('			<stations>\n')
 
     for stops in line[2:]:
@@ -264,8 +264,8 @@ for line in Blines_data:
         statistics_file.write('				<station refId="'+stops+'" />\n')
 
     statistics_file.write('			</revStations>\n')
-    statistics_file.write('			<frequencies>\n')
-    statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n')
+    statistics_file.write('			<frequencies>\n') #TODO: mange frequncies
+    statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n') #TODO
     statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
     statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
     statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')

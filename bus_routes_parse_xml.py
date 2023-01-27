@@ -24,6 +24,7 @@ for line in root.iter('ptLine'):
 		index=index+1
 		dictionary['length']=index
 	lineDetails.append(dictionary.copy())
+	dictionary.clear()
 
 	index = 0
 
