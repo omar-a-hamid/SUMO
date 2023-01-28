@@ -19,6 +19,11 @@ stat_file_genrated.stat.xml --> genrates statistics file pushing
 import json
 import csv
 import xml.etree.ElementTree as ET
+from random import *
+
+
+def to_sec(hour):
+    return int(hour*60*60)
 
 
 
@@ -221,7 +226,7 @@ statistics_file.write('	\n')
 statistics_file.write('	<streets>\n')
 for id in ids_list:
 
-            statistics_file.write('		<street edge="'+str(id)+'" population="'+defualt_population+'" workPosition="'+defualt_work_pos+'" />\n')
+            statistics_file.write('		<street edge="'+str(id)+'" population="'+str(int(defualt_population)+randint(1,5))+'" workPosition="'+str(int(defualt_work_pos)+randint(1,5))+'" />\n')
 
 statistics_file.write('	</streets>\n')
 statistics_file.write('	\n')
@@ -251,9 +256,13 @@ statistics_file.write('	</busStations>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<busLines>\n')
 
+
+base_rate = round(int(inhabitants)/50) # TODO hardcodded 
+
+
 for line in Blines_data:
 
-    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="10">\n') #TODO: max trip duration
+    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="'+str(randint(5,15))+'">\n') #TODO: max trip duration # TODO hardcoded
     statistics_file.write('			<stations>\n')
 
     for stops in line[2:]:
@@ -263,12 +272,16 @@ for line in Blines_data:
     for stops in reversed(line[2:]):
         statistics_file.write('				<station refId="'+stops+'" />\n')
 
+    const_rand_1 = randint(0,3600)
+    const_rand_2 = randint(0,3600)
+    const_rand_3= randint(0,3600)
+    const_rand_4 = randint(0,3600)
     statistics_file.write('			</revStations>\n')
     statistics_file.write('			<frequencies>\n') #TODO: mange frequncies
-    statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n') #TODO
-    statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
-    statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
-    statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
+    statistics_file.write('				<frequency begin="'+str(to_sec(5)+const_rand_1)+'" end="'+str(to_sec(8)+const_rand_2)+'" rate="'+str(base_rate*2+randint(0,base_rate))+'" />\n') #TODO
+    statistics_file.write('				<frequency begin="'+str(to_sec(8)+const_rand_2)+'" end="'+str(to_sec(18)+const_rand_3)+'" rate="'+str(base_rate*5+randint(0,base_rate))+'" />\n')
+    statistics_file.write('				<frequency begin="'+str(to_sec(18)+const_rand_3)+'" end="'+str(to_sec(21)+const_rand_4)+'" rate="'+str(base_rate*4+randint(0,base_rate))+'" />\n')
+    statistics_file.write('				<frequency begin="'+str(to_sec(21)+const_rand_4)+'" end="86399" rate="'+str(base_rate*1+randint(0,base_rate))+'" />\n')
     statistics_file.write('			</frequencies>\n')
     statistics_file.write('		</busLine>\n')
     statistics_file.write('		\n')
@@ -276,3 +289,19 @@ for line in Blines_data:
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>')
+
+"""    statistics_file.write('				<frequency begin="21600" end="36000" rate="300" />\n') #TODO
+    statistics_file.write('				<frequency begin="36000" end="57600" rate="1800" />\n')
+    statistics_file.write('				<frequency begin="57600" end="68400" rate="300" />\n')
+    statistics_file.write('				<frequency begin="68400" end="86399" rate="1800" />\n')
+    """
+
+
+"""
+
+5+l->8+x low factor 2   20-> 40
+8+x->6+y Vhigh factor 5 -> 100
+6+y->9+z high  factor 4 --> 80 
+9+z->12 Vlow factor 1  --> 20 
+
+"""

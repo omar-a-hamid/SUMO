@@ -11,8 +11,8 @@
     "outgoingTraffic":"500",
     "laborDemand":"1.05",
 
-    "defualt_population": "1",
-    "defualt_work_pos" : "1",
+    "defualt_population": "0",
+    "defualt_work_pos" : "0",
 
     "carPreference":"0.50",
     "meanTimePerKmInCity":"6", 
