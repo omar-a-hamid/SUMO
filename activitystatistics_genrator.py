@@ -220,26 +220,22 @@ for beginAge, endAge, nbr in zip(begin_age,end_age,people_Nbr):
 statistics_file.write('	</population>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<workHours>\n')
-for hour, proprtion in zip(op_hours,op_prop):
-    statistics_file.write('		<opening hour="'+hour+'" proportion="'+str(round(float(proprtion)*3/4,2))+'" />\n')
 
-# proprtion_list = random.normal(1,1,12)
-# proprtion_list /= sum(proprtion_list)
-
-temp = np.arange(0, 24,1)
+temp = np.arange(0, 23,1)
   
 proprtion_list = norm.pdf(temp, 14,5)  
+factor = (2/4)
 
-print(proprtion_list)
-print(sum(proprtion_list))
+for hour, proprtion in zip(op_hours,op_prop):
+    statistics_file.write('		<opening hour="'+hour+'" proportion="'+str(round(float(proprtion)*factor,2))+'" />\n')
 
 
-for hour,proprtion_dash in zip(range(0,24),proprtion_list):
-    statistics_file.write('		<opening hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*1/4,2))+'" />\n')
+for hour,proprtion_dash in zip(range(0,23),proprtion_list):
+    statistics_file.write('		<opening hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*(1-factor),2))+'" />\n')
 for hour, proprtion in zip(cl_hours,cl_prop):
-    statistics_file.write('		<closing hour="'+hour+'" proportion="'+str(round(float(proprtion)*3/4,2))+'" />\n')
-for hour,proprtion_dash in zip(range(0,24),proprtion_list):
-    statistics_file.write('		<closing hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*1/4,2))+'" />\n')
+    statistics_file.write('		<closing hour="'+hour+'" proportion="'+str(round(float(proprtion)*factor,2))+'" />\n')
+for hour,proprtion_dash in zip(range(0,23),proprtion_list):
+    statistics_file.write('		<closing hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*(1-factor),2))+'" />\n')
 statistics_file.write('	</workHours>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<streets>\n')
