@@ -1,7 +1,7 @@
 {
 
     "inhabitants": "23000",
-    "households": "5000",
+    "households": "12234",
     "childrenAgeLimit": "17",
     "retirementAgeLimit": "60",
     "carRate": "0.58",
@@ -16,9 +16,9 @@
 
     "carPreference":"0.41",
     "meanTimePerKmInCity":"2.5", 
-    "freeTimeActivityRate":"0.01",
-    "uniformRandomTraffic":"0.15",
-    "departureVariation":"300",
+    "freeTimeActivityRate":"0.1",
+    "uniformRandomTraffic":"0.35",
+    "departureVariation":"3600",
 
 
     "school_defualt_pos": "20",
@@ -58,8 +58,17 @@
     
     {
         "hour":"32401",
-        "proportion":"0.70"
+        "proportion":"0.40"
+    },
+        {
+        "hour":"36001",
+        "proportion":"0.15"
+    },        {
+        "hour":"39601",
+        "proportion":"0.15"
     }
+
+
 
     ],
 
