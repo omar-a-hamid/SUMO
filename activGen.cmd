@@ -45,4 +45,4 @@ echo.
 
 echo complete
 
-EXIT
+pause

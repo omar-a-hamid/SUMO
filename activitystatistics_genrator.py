@@ -29,7 +29,8 @@ from scipy.stats import norm
 def to_sec(hour):
     return int(hour*60*60)
 
-
+factor = (2/4)
+standard_div_workhours = 5
 
 stats_json = open ('stats.json', "r")
   
@@ -38,7 +39,11 @@ data_json = json.loads(stats_json.read())
 
 
 inhabitants             = data_json["inhabitants"]
+inhabitants = str( round(int(inhabitants)*(1+(1-factor))))
+
 households              = data_json["households"]
+households = str( round(int(households)*(1+(1-factor))))
+
 childrenAgeLimit        = data_json["childrenAgeLimit"]
 retirementAgeLimit      = data_json["retirementAgeLimit"]
 carRate                 = data_json["carRate"]
@@ -223,8 +228,8 @@ statistics_file.write('	<workHours>\n')
 
 temp = np.arange(0, 23,1)
   
-proprtion_list = norm.pdf(temp, 14,5)  
-factor = (2/4)
+proprtion_list = norm.pdf(temp, 14,standard_div_workhours)  
+
 
 for hour, proprtion in zip(op_hours,op_prop):
     statistics_file.write('		<opening hour="'+hour+'" proportion="'+str(round(float(proprtion)*factor,2))+'" />\n')
