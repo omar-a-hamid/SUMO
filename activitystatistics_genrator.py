@@ -62,28 +62,28 @@ departureVariation      = data_json["departureVariation"]
 defualt_population      = data_json["defualt_population"]
 defualt_work_pos        = data_json["defualt_work_pos"]
 
-school_defualt_pos = data_json["school_defualt_pos"]
+school_defualt_pos      = data_json["school_defualt_pos"]
 school_defualt_beginAge = data_json["school_defualt_beginAge"]
-school_defualt_endAge = data_json["school_defualt_endAge"]
+school_defualt_endAge   = data_json["school_defualt_endAge"]
 school_defualt_capacity = data_json["school_defualt_capacity"]
-school_defualt_opening = data_json["school_defualt_opening"]
-school_defualt_closing = data_json["school_defualt_closing"]
+school_defualt_opening  = data_json["school_defualt_opening"]
+school_defualt_closing  = data_json["school_defualt_closing"]
 
 
-begin_age = []
-end_age = []
-people_Nbr = []
+begin_age       =[]
+end_age         =[]
+people_Nbr      =[]
 
-op_hours=[]
-op_prop = []
+op_hours        =[]
+op_prop         =[]
 
-cl_prop = []
-cl_hours=[]
+cl_prop         =[]
+cl_hours        =[]
 
-gates_edges = []
-gates_pos =[]
-gates_outgoing =[]
-gates_incoming =[] 
+gates_edges     =[]
+gates_pos       =[]
+gates_outgoing  =[]
+gates_incoming  =[] 
 
 
 for index in data_json['population']:
@@ -109,7 +109,7 @@ for index in data_json['gates']:
 
 stats_json.close()
 
-
+##########################################################
 
 data_file = open('edges_float.csv','r')
 reader = csv.reader(data_file, dialect='excel' )
@@ -126,6 +126,7 @@ for row in reader:
 
 data_file.close()
 
+##########################################################
 
 data_file_schools = open('gen_float.csv','r')
 reader_schools = csv.reader(data_file_schools, dialect='excel' )
@@ -146,6 +147,7 @@ for row in reader_schools:
 
 data_file_schools.close()
 
+##########################################################
 
 ##ref_id dectionary
 ref_id_dect = {}
@@ -155,6 +157,8 @@ for row in reader_Bstops_refId:
     ref_id_dect[str(row[0])] = row[-1]
 
 data_file_bstops_ref_id.close()
+
+##########################################################
 
 ##bus stops
 data_file_bstops = open('Bstop.csv','r')
@@ -177,6 +181,7 @@ for row in reader_Bstops:
 
 data_file_bstops.close()
 
+##########################################################
 
 ##bus lines
 data_file_Blines = open('bus_lines.csv','r')
@@ -205,6 +210,10 @@ for row in reader_Blines:
 
 
 data_file_Blines.close()
+
+##########################################################
+##########################################################
+
 
 statistics_file = open('stat_file_generated.stat.xml','w')
 
