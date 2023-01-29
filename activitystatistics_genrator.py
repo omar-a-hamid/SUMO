@@ -20,6 +20,10 @@ import json
 import csv
 import xml.etree.ElementTree as ET
 from random import *
+import numpy as np
+from scipy.stats import norm
+  
+
 
 
 def to_sec(hour):
@@ -212,15 +216,30 @@ for beginAge, endAge, nbr in zip(begin_age,end_age,people_Nbr):
 
     statistics_file.write('		<bracket beginAge="'+beginAge+'" endAge="'+endAge+'" peopleNbr="'+nbr+'" />\n')
 
+
 statistics_file.write('	</population>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<workHours>\n')
 for hour, proprtion in zip(op_hours,op_prop):
-    statistics_file.write('		<opening hour="'+hour+'" proportion="'+proprtion+'" />\n')
+    statistics_file.write('		<opening hour="'+hour+'" proportion="'+str(round(float(proprtion)*3/4,2))+'" />\n')
 
+# proprtion_list = random.normal(1,1,12)
+# proprtion_list /= sum(proprtion_list)
+
+temp = np.arange(0, 24,1)
+  
+proprtion_list = norm.pdf(temp, 14,5)  
+
+print(proprtion_list)
+print(sum(proprtion_list))
+
+
+for hour,proprtion_dash in zip(range(0,24),proprtion_list):
+    statistics_file.write('		<opening hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*1/4,2))+'" />\n')
 for hour, proprtion in zip(cl_hours,cl_prop):
-    statistics_file.write('		<closing hour="'+hour+'" proportion="'+proprtion+'" />\n')
-
+    statistics_file.write('		<closing hour="'+hour+'" proportion="'+str(round(float(proprtion)*3/4,2))+'" />\n')
+for hour,proprtion_dash in zip(range(0,24),proprtion_list):
+    statistics_file.write('		<closing hour="'+str(to_sec(hour))+'" proportion="'+str(round(float(proprtion_dash)*1/4,2))+'" />\n')
 statistics_file.write('	</workHours>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<streets>\n')
@@ -281,7 +300,7 @@ for line in Blines_data:
     statistics_file.write('				<frequency begin="'+str(to_sec(5)+const_rand_1)+'" end="'+str(to_sec(8)+const_rand_2)+'" rate="'+str(base_rate*2+randint(0,base_rate))+'" />\n') #TODO
     statistics_file.write('				<frequency begin="'+str(to_sec(8)+const_rand_2)+'" end="'+str(to_sec(18)+const_rand_3)+'" rate="'+str(base_rate*5+randint(0,base_rate))+'" />\n')
     statistics_file.write('				<frequency begin="'+str(to_sec(18)+const_rand_3)+'" end="'+str(to_sec(21)+const_rand_4)+'" rate="'+str(base_rate*4+randint(0,base_rate))+'" />\n')
-    statistics_file.write('				<frequency begin="'+str(to_sec(21)+const_rand_4)+'" end="86399" rate="'+str(base_rate*1+randint(0,base_rate))+'" />\n')
+    statistics_file.write('				<frequency begin="'+str(to_sec(21)+const_rand_4)+'" end="'+str(to_sec(22)+const_rand_1)+'" rate="'+str(base_rate*1+randint(0,base_rate))+'" />\n')
     statistics_file.write('			</frequencies>\n')
     statistics_file.write('		</busLine>\n')
     statistics_file.write('		\n')

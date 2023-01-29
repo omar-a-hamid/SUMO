@@ -6,6 +6,8 @@ python bus_routes_parse_xml.py
 python Bstops_ref.py
 python activitystatistics_genrator.py
 
+
+
 activitygen --net-file "../osm.net.xml" --stat-file stat_file_generated.stat.xml --output-file trips_file.trips.rou.xml --random
 
 @ECHO off
@@ -50,5 +52,7 @@ echo  ^</configuration^>  >> "../osm.sumocfg"
 echo.
 echo.
 echo complete
+
+@ECHO on
 
 pause
