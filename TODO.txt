@@ -6,7 +6,10 @@ TODO: activityGEN buslines freq and duration
 
 TODO: activityGEN school pos?
 
-TODO: activityGEN distrbution of works and population in streets 
+TODO: activityGEN distrbution of works and population in streets  make it by length
+
+TODO: chack save to XML either from sumo or pandas
+
 
 
 BUG: buslines stops are not cleared, constant between iterations fi l(n)>l(n-1) //DONE
