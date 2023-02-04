@@ -1,4 +1,4 @@
-
+@ECHO off
 activitygen --net-file "../osm.net.xml" --stat-file stat_file_generated.stat.xml --output-file trips_file.trips.rou.xml --random
 
 

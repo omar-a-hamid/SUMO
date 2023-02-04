@@ -29,8 +29,8 @@ from scipy.stats import norm
 def to_sec(hour):
     return int(hour*60*60)
 
-factor = (2/4)
-standard_div_workhours = 5
+factor = (2/4) #work to randmness 
+standard_div_workhours = 5 #of tarffic 
 
 stats_json = open ('stats.json', "r")
   
@@ -131,8 +131,8 @@ data_file.close()
 data_file_schools = open('gen_float.csv','r')
 reader_schools = csv.reader(data_file_schools, dialect='excel' )
 counter = 0
-school_ids = []
-school_edges = []
+school_ids      = []
+school_edges    = []
 
 
 for row in reader_schools:
@@ -164,9 +164,9 @@ data_file_bstops_ref_id.close()
 data_file_bstops = open('Bstop.csv','r')
 reader_Bstops = csv.reader(data_file_bstops, dialect='excel' )
 counter = 0
-stops_ids = []
+stops_ids   = []
 stops_edges = []
-stops_pos = []
+stops_pos   = []
 
 
 for row in reader_Bstops:

@@ -10,5 +10,3 @@ python activitystatistics_genrator.py
 
 
 pause
-
-EXIT
