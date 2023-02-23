@@ -1,3 +1,7 @@
+# This is not a makefile for building or anything related to build process!
+# This is only used for generating needed files based on their dependncies 
+# Make here is just used as a Tool
+
 SHELL=cmd.exe
 .SHELLFLAGS = /c
 
