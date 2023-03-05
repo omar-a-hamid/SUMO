@@ -30,7 +30,7 @@ def to_sec(hour):
     return int(hour*60*60)
 
 factor = (2/4) #work to randmness 
-standard_div_workhours = 5 #of tarffic 
+standard_div_workhours = 5 #standard deviation of tarffic 
 
 stats_json = open ('stats.json', "r")
   

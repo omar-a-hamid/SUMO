@@ -8,7 +8,7 @@ TODO: activityGEN school pos?
 
 TODO: activityGEN distrbution of works and population in streets  make it by length
 
-TODO: chack save to XML either from sumo or pandas
+TODO: save to XML directly using either from sumo or pandas
 
 
 
