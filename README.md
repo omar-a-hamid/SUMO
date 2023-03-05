@@ -19,7 +19,7 @@ How to use:
 
 3-edit "stats.json" for desired simulation parameters
 
-4-run "sumo_route_genrator.cmd"
+4-run "sumo_route_genrator.cmd" or the makefile
     this willl run the following scripts:
         
         -parsedge.py
@@ -32,7 +32,7 @@ How to use:
 
     then will  run the activityGen tool
 
-    this will genrate the needed files, now 
+    this will genrate the needed files 
 
 
 5-open osm.sumocfg
