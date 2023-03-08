@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import xml.etree.cElementTree as et
 
-tree=et.parse('osm.poly.xml')
+tree=et.parse('../osm.poly.xml')
 root=tree.getroot()
 print(root[2])
 
@@ -24,7 +24,9 @@ for poly in root:
 	except: 
 		continue 
 
+
 df = pd.DataFrame.from_dict(polyDetails) 
+df = df.dropna(subset=['shape'])
 df.to_csv (r'gen.csv', index = False, header=True)
 
-
+print("Finish")
