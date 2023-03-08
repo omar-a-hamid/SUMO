@@ -1,0 +1,90 @@
+call hirarchy: 
+1-osm web osm_web_wiz
+2-sumo_route_generator.cmd
+    -parsedge.py
+    -parse_xml.py
+    -parseBstop.py
+    -nearestEdge.py
+    -activitystatistics_genrator.py
+
+
+
+
+osm_web_wiz: 
+
+    gen: 
+        osm.net.xml 
+        osm.poly.xml
+        osm_stops.add.xml
+
+stats.json: 
+    reqs:
+        manual? 
+
+parsedge.py: 
+    reqs: 
+        osm.net.xml
+    gen: 
+        edges.csv
+
+
+parse_xml.py:
+
+    reqs:
+        osm.poly.xml
+        
+    gen: 
+        gen.csv
+
+
+parseBstop.py: 
+
+    reqs: 
+        osm_stops.add.xml
+    gen: 
+        Bstop.csv
+
+Bstops_ref.py:
+    reqs: 
+        Bstop.csv
+    gen: 
+        Bstop_ref_id.csv
+
+
+nearestedge.py:
+    reqs:
+        edges.csv
+        gen.csv
+
+    genrates: 
+        gen_float.csv
+        edges_float.csv
+
+
+activitystatistics_genrator.py: 
+
+    reqs:
+        Bstop.csv
+        bus_lines.csv
+        Bstop_ref_id.csv
+        stats.json 
+        edges_float.csv
+        gen_float.csv
+
+    genrates: 
+        stat_file_generated.stat.xml
+
+
+
+sumo_route_generator.cmd: 
+    reqs:
+        osm.net.xml 
+        stat_file.stat.xml
+    
+    gen:
+        filtered.rou.xml
+
+
+
+
+

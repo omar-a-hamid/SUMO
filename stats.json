@@ -1,0 +1,259 @@
+{
+
+    "inhabitants": "23000",
+    "households": "12234",
+    "childrenAgeLimit": "17",
+    "retirementAgeLimit": "60",
+    "carRate": "0.58",
+    "unemploymentRate":"0.086",
+    "footDistanceLimit":"250",
+    "incomingTraffic":"2000",
+    "outgoingTraffic":"1000",
+    "laborDemand":"1.5",
+
+    "defualt_population": "1",
+    "defualt_work_pos" : "1",
+
+    "carPreference":"0.41",
+    "meanTimePerKmInCity":"2.5", 
+    "freeTimeActivityRate":"0.1",
+    "uniformRandomTraffic":"0.35",
+    "departureVariation":"3600",
+
+
+    "school_defualt_pos": "20",
+    "school_defualt_beginAge": "6",
+    "school_defualt_endAge": "18",
+    "school_defualt_capacity": "390",
+    "school_defualt_opening": "37900",
+    "school_defualt_closing": "50400",
+
+
+    "population": [
+    
+    {
+        "beginAge":"0",
+        "endAge":"17",
+        "peopleNbr":"15"
+    },
+    
+    {
+        "beginAge":"18",
+        "endAge":"64",
+        "peopleNbr":"67"
+    },
+    {
+        "beginAge":"65",
+        "endAge":"90",
+        "peopleNbr":"18"
+    }
+    ],
+
+
+    "opening": [
+    {
+        "hour":"30600",
+        "proportion":"0.30"
+    },
+    
+    {
+        "hour":"32401",
+        "proportion":"0.40"
+    },
+        {
+        "hour":"36001",
+        "proportion":"0.15"
+    },        {
+        "hour":"39601",
+        "proportion":"0.15"
+    }
+
+
+
+    ],
+
+    "closing": [
+        {
+            "hour":"43201",
+            "proportion":"0.20"
+        },
+        {
+            "hour":"63001",
+            "proportion":"0.20"
+        },
+        {
+            "hour":"64801",
+            "proportion":"0.60"
+        }
+        ],
+
+    "comment on gates (below), gates are left empty":"",
+    "but should be added in the following format":[		
+        {
+            "edge":"-25584616#1",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+        {
+            "edge":"-25584615#1",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        }
+    ],
+    "gates":[		
+ {
+            "edge":"135777010#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+        {
+            "edge":"142575725#4",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"143308532#3",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"46039050#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"190083623#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"458325551",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"190083610#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"24152572#6",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"24152572#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"41321666",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+         {
+            "edge":"822162692",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        }, 
+        {
+            "edge":"24160837#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"856407909",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"177615723#1",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"363443436",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"376421806#6",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"40451057",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+ {
+            "edge":"850224612",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+  {
+            "edge":"97206935#0",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        }, {
+            "edge":"85278289#8",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        },
+
+        {
+            "edge":"526210069",
+            "pos":"1",
+            "incoming":"0.67",
+            "outgoing":"0.33"
+
+        }
+
+    ]
+    
+
+}

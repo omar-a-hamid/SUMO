@@ -1,3 +1,16 @@
-BUG:error in sumo_route_generator.cmd and activitystatistics genrator.py integration 
+TODO: city gates in JSON file 
 
-BUG: error between Nourhan edietd files and my scripts 
+TODO: simulation parameters? 
+
+TODO: activityGEN buslines freq and duration
+
+TODO: activityGEN school pos?
+
+TODO: activityGEN distrbution of works and population in streets  make it by length
+
+TODO: save to XML directly using either from sumo or pandas
+
+
+
+BUG: buslines stops are not cleared, constant between iterations fi l(n)>l(n-1) //DONE
+
