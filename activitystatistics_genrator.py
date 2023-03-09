@@ -29,8 +29,9 @@ from scipy.stats import norm
 def to_sec(hour):
     return int(hour*60*60)
 
-factor = (2/4) #work to randmness 
+factor = (3/4) #work to randmness 
 standard_div_workhours = 5 #standard deviation of tarffic 
+MID_HOUR = 14
 
 stats_json = open ('stats.json', "r")
   
@@ -239,7 +240,7 @@ statistics_file.write('	<workHours>\n')
 
 temp = np.arange(0, 23,1)
   
-proprtion_list = norm.pdf(temp, 14,standard_div_workhours)  
+proprtion_list = norm.pdf(temp, MID_HOUR,standard_div_workhours)  
 
 
 for hour, proprtion in zip(op_hours,op_prop):
