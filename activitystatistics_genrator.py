@@ -150,67 +150,69 @@ data_file_schools.close()
 ##########################################################
 
 ##ref_id dectionary
-ref_id_dect = {}
-data_file_bstops_ref_id = open('Bstop_ref_id.csv','r')
-reader_Bstops_refId = csv.reader(data_file_bstops_ref_id, dialect='excel' )
-for row in reader_Bstops_refId:
-    ref_id_dect[str(row[0])] = row[-1]
+try: 
+    ref_id_dect = {}
+    data_file_bstops_ref_id = open('Bstop_ref_id.csv','r')
+    reader_Bstops_refId = csv.reader(data_file_bstops_ref_id, dialect='excel' )
+    for row in reader_Bstops_refId:
+        ref_id_dect[str(row[0])] = row[-1]
 
-data_file_bstops_ref_id.close()
-
-##########################################################
-
-##bus stops
-data_file_bstops = open('Bstop.csv','r')
-reader_Bstops = csv.reader(data_file_bstops, dialect='excel' )
-counter = 0
-stops_ids   = []
-stops_edges = []
-stops_pos   = []
-
-
-for row in reader_Bstops:
-    if(not (counter)):
-        counter +=1
-        continue
-
-    stops_ids.append(ref_id_dect[str(row[0])])
-    stops_edges.append(row[1])
-    stops_pos.append(str(round((float(row[2])+float(row[3]))/2)))
-
-
-data_file_bstops.close()
+    data_file_bstops_ref_id.close()
 
 ##########################################################
 
-##bus lines
-data_file_Blines = open('bus_lines.csv','r')
-reader_Blines = csv.reader(data_file_Blines, dialect='excel' )
-counter = 0
+    ##bus stops
+    data_file_bstops = open('Bstop.csv','r')
+    reader_Bstops = csv.reader(data_file_bstops, dialect='excel' )
+    counter = 0
+    stops_ids   = []
+    stops_edges = []
+    stops_pos   = []
 
 
-Blines_data=[]
-Blines_rouets=[]
-for row in reader_Blines:
-    if(not (counter)):
-        counter +=1
-        continue
-        
-    Blines_rouets.append(row[0])
-    for element in row[2:]: 
-        if(element):
-           
+    for row in reader_Bstops:
+        if(not (counter)):
+            counter +=1
+            continue
 
-            Blines_rouets.append(ref_id_dect[str(element)])
+        stops_ids.append(ref_id_dect[str(row[0])])
+        stops_edges.append(row[1])
+        stops_pos.append(str(round((float(row[2])+float(row[3]))/2)))
 
 
-    Blines_data.append(Blines_rouets.copy())
-    Blines_rouets.clear()
-    print(Blines_data)
+    data_file_bstops.close()
+
+    ##########################################################
+
+    ##bus lines
+    data_file_Blines = open('bus_lines.csv','r')
+    reader_Blines = csv.reader(data_file_Blines, dialect='excel' )
+    counter = 0
 
 
-data_file_Blines.close()
+    Blines_data=[]
+    Blines_rouets=[]
+    for row in reader_Blines:
+        if(not (counter)):
+            counter +=1
+            continue
+            
+        Blines_rouets.append(row[0])
+        for element in row[2:]: 
+            if(element):
+            
 
+                Blines_rouets.append(ref_id_dect[str(element)])
+
+
+        Blines_data.append(Blines_rouets.copy())
+        Blines_rouets.clear()
+        print(Blines_data)
+
+
+    data_file_Blines.close()
+except:
+    ...
 ##########################################################
 ##########################################################
 
@@ -277,10 +279,12 @@ statistics_file.write('	</schools>\n')
 statistics_file.write('	\n')
 
 
-
 statistics_file.write('	<busStations>\n')
-for stop_id,stop_edge,stop_pos in zip(stops_ids,stops_edges,stops_pos):
-		statistics_file.write('		<busStation id="'+stop_id+'" edge="'+stop_edge+'" pos="'+stop_pos+'" />\n')
+try:
+    for stop_id,stop_edge,stop_pos in zip(stops_ids,stops_edges,stops_pos):
+            statistics_file.write('		<busStation id="'+stop_id+'" edge="'+stop_edge+'" pos="'+stop_pos+'" />\n')
+except:
+    pass
 statistics_file.write('	</busStations>\n')
 statistics_file.write('	\n')
 statistics_file.write('	<busLines>\n')
@@ -288,33 +292,34 @@ statistics_file.write('	<busLines>\n')
 
 base_rate = round(int(inhabitants)/50) # TODO hardcodded 
 
+try:
+    for line in Blines_data:
 
-for line in Blines_data:
+        statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="'+str(randint(5,15))+'">\n') #TODO: max trip duration # TODO hardcoded
+        statistics_file.write('			<stations>\n')
 
-    statistics_file.write('		<busLine id="'+line[0]+'" maxTripDuration="'+str(randint(5,15))+'">\n') #TODO: max trip duration # TODO hardcoded
-    statistics_file.write('			<stations>\n')
+        for stops in line[2:]:
+            statistics_file.write('				<station refId="'+stops+'" />\n')
+        statistics_file.write('			</stations>\n')
+        statistics_file.write('			<revStations>\n')
+        for stops in reversed(line[2:]):
+            statistics_file.write('				<station refId="'+stops+'" />\n')
 
-    for stops in line[2:]:
-        statistics_file.write('				<station refId="'+stops+'" />\n')
-    statistics_file.write('			</stations>\n')
-    statistics_file.write('			<revStations>\n')
-    for stops in reversed(line[2:]):
-        statistics_file.write('				<station refId="'+stops+'" />\n')
-
-    const_rand_1 = randint(0,3600)
-    const_rand_2 = randint(0,3600)
-    const_rand_3= randint(0,3600)
-    const_rand_4 = randint(0,3600)
-    statistics_file.write('			</revStations>\n')
-    statistics_file.write('			<frequencies>\n') #TODO: mange frequncies
-    statistics_file.write('				<frequency begin="'+str(to_sec(5)+const_rand_1)+'" end="'+str(to_sec(8)+const_rand_2)+'" rate="'+str(base_rate*2+randint(0,base_rate))+'" />\n') #TODO
-    statistics_file.write('				<frequency begin="'+str(to_sec(8)+const_rand_2)+'" end="'+str(to_sec(18)+const_rand_3)+'" rate="'+str(base_rate*5+randint(0,base_rate))+'" />\n')
-    statistics_file.write('				<frequency begin="'+str(to_sec(18)+const_rand_3)+'" end="'+str(to_sec(21)+const_rand_4)+'" rate="'+str(base_rate*4+randint(0,base_rate))+'" />\n')
-    statistics_file.write('				<frequency begin="'+str(to_sec(21)+const_rand_4)+'" end="'+str(to_sec(22)+const_rand_1)+'" rate="'+str(base_rate*1+randint(0,base_rate))+'" />\n')
-    statistics_file.write('			</frequencies>\n')
-    statistics_file.write('		</busLine>\n')
-    statistics_file.write('		\n')
-
+        const_rand_1 = randint(0,3600)
+        const_rand_2 = randint(0,3600)
+        const_rand_3= randint(0,3600)
+        const_rand_4 = randint(0,3600)
+        statistics_file.write('			</revStations>\n')
+        statistics_file.write('			<frequencies>\n') #TODO: mange frequncies
+        statistics_file.write('				<frequency begin="'+str(to_sec(5)+const_rand_1)+'" end="'+str(to_sec(8)+const_rand_2)+'" rate="'+str(base_rate*2+randint(0,base_rate))+'" />\n') #TODO
+        statistics_file.write('				<frequency begin="'+str(to_sec(8)+const_rand_2)+'" end="'+str(to_sec(18)+const_rand_3)+'" rate="'+str(base_rate*5+randint(0,base_rate))+'" />\n')
+        statistics_file.write('				<frequency begin="'+str(to_sec(18)+const_rand_3)+'" end="'+str(to_sec(21)+const_rand_4)+'" rate="'+str(base_rate*4+randint(0,base_rate))+'" />\n')
+        statistics_file.write('				<frequency begin="'+str(to_sec(21)+const_rand_4)+'" end="'+str(to_sec(22)+const_rand_1)+'" rate="'+str(base_rate*1+randint(0,base_rate))+'" />\n')
+        statistics_file.write('			</frequencies>\n')
+        statistics_file.write('		</busLine>\n')
+        statistics_file.write('		\n')
+except:
+    ...
 statistics_file.write('	</busLines>\n')
 statistics_file.write('	\n')
 statistics_file.write('</city>')
